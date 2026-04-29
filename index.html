@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quejas & Sugerencias — Habit Hair & Nail Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blush: #f5ede8;
+    --rose: #c9896e;
+    --rose-dark: #a06550;
+    --charcoal: #2c2420;
+    --muted: #7a6a64;
+    --border: #e8d8d0;
+    --white: #fffaf8;
+  }
+
+  body {
+    background: var(--blush);
+    font-family: 'Jost', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 2rem 1rem 4rem;
+    color: var(--charcoal);
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    max-width: 480px;
+  }
+
+  .logo-mark {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: var(--charcoal);
+    line-height: 1.1;
+  }
+
+  .brand-sub {
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    color: var(--rose);
+    text-transform: uppercase;
+    margin-top: 4px;
+    font-weight: 400;
+  }
+
+  .divider {
+    width: 48px;
+    height: 1px;
+    background: var(--rose);
+    margin: 1rem auto;
+    opacity: 0.6;
+  }
+
+  .intro {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 340px;
+    margin: 0 auto;
+  }
+
+  form {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    width: 100%;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  label {
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  select,
+  textarea {
+    width: 100%;
+    padding: 0.7rem 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.93rem;
+    color: var(--charcoal);
+    background: var(--blush);
+    outline: none;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--rose);
+    background: #fff;
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 110px;
+  }
+
+  .stars {
+    display: flex;
+    gap: 6px;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+  }
+
+  .stars input { display: none; }
+
+  .stars label {
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: var(--border);
+    text-transform: none;
+    letter-spacing: 0;
+    transition: color 0.15s;
+  }
+
+  .stars input:checked ~ label,
+  .stars label:hover,
+  .stars label:hover ~ label {
+    color: var(--rose);
+  }
+
+  .stars { flex-direction: row; }
+  .stars label { order: 0; }
+
+  .star-group {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+  }
+
+  .star-group label {
+    font-size: 1.6rem;
+    cursor: pointer;
+    color: #ddd;
+    text-transform: none;
+    letter-spacing: 0;
+    line-height: 1;
+  }
+
+  .star-group input:checked ~ label { color: #ddd; }
+
+  /* Manual star rating */
+  .rating-row {
+    display: flex;
+    gap: 6px;
+  }
+
+  .star-btn {
+    background: none;
+    border: none;
+    font-size: 1.6rem;
+    cursor: pointer;
+    color: #dcc8c0;
+    transition: color 0.15s, transform 0.1s;
+    padding: 0;
+    line-height: 1;
+  }
+
+  .star-btn.active, .star-btn:hover {
+    color: var(--rose);
+    transform: scale(1.1);
+  }
+
+  .submit-btn {
+    margin-top: 0.5rem;
+    padding: 0.9rem;
+    background: var(--rose);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.06em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+  }
+
+  .submit-btn:hover { background: var(--rose-dark); }
+  .submit-btn:active { transform: scale(0.98); }
+
+  .thank-you {
+    display: none;
+    text-align: center;
+    padding: 3rem 2rem;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    max-width: 480px;
+    width: 100%;
+  }
+
+  .thank-you .checkmark {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .thank-you h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .thank-you p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .thank-you .reset-btn {
+    margin-top: 1.5rem;
+    padding: 0.6rem 1.4rem;
+    background: none;
+    border: 1px solid var(--rose);
+    border-radius: 8px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.85rem;
+    color: var(--rose);
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .thank-you .reset-btn:hover { background: var(--blush); }
+
+  footer {
+    margin-top: 2rem;
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-align: center;
+    opacity: 0.7;
+  }
+
+  footer a { color: var(--rose); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-mark">
+    <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="32" cy="32" r="30" stroke="#c9896e" stroke-width="1.5" fill="none"/>
+      <path d="M20 44 Q32 16 44 44" stroke="#c9896e" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <circle cx="32" cy="28" r="3" fill="#c9896e"/>
+    </svg>
+  </div>
+  <div class="brand">Habit Hair &amp; Nail Studio</div>
+  <div class="brand-sub">Tu opinión importa</div>
+  <div class="divider"></div>
+  <p class="intro">Queremos brindarte la mejor experiencia. Cuéntanos cómo fue tu visita o cómo podemos mejorar.</p>
+</header>
+
+<form id="feedbackForm">
+
+  <div class="field">
+    <label>Nombre (opcional)</label>
+    <input type="text" name="nombre" placeholder="Tu nombre o apodo">
+  </div>
+
+  <div class="field">
+    <label>Servicio recibido</label>
+    <select name="servicio">
+      <option value="" disabled selected>Selecciona un servicio</option>
+      <option>Corte de cabello</option>
+      <option>Tinte / coloración</option>
+      <option>Tratamiento capilar</option>
+      <option>Manicure</option>
+      <option>Pedicure</option>
+      <option>Uñas acrílicas / gel</option>
+      <option>Alisado / keratina</option>
+      <option>Otro</option>
+    </select>
+  </div>
+
+  <div class="field">
+    <label>Valoración de tu experiencia</label>
+    <div class="rating-row" id="starRow">
+      <button type="button" class="star-btn" data-val="1">★</button>
+      <button type="button" class="star-btn" data-val="2">★</button>
+      <button type="button" class="star-btn" data-val="3">★</button>
+      <button type="button" class="star-btn" data-val="4">★</button>
+      <button type="button" class="star-btn" data-val="5">★</button>
+    </div>
+    <input type="hidden" name="valoracion" id="valoracionInput">
+  </div>
+
+  <div class="field">
+    <label>Comentarios o sugerencias</label>
+    <textarea name="comentario" placeholder="Cuéntanos tu experiencia, qué te gustó o qué podríamos mejorar..."></textarea>
+  </div>
+
+  <div class="field">
+    <label>Correo (opcional, para responderte)</label>
+    <input type="email" name="email" placeholder="tu@correo.com">
+  </div>
+
+  <button type="submit" class="submit-btn">Enviar mi opinión</button>
+
+</form>
+
+<div class="thank-you" id="thankYou">
+  <div class="checkmark">✿</div>
+  <h2>¡Gracias por tu opinión!</h2>
+  <p>Tu comentario es muy valioso para nosotros.<br>Seguiremos trabajando para darte la mejor experiencia.</p>
+  <button class="reset-btn" onclick="resetForm()">Enviar otra respuesta</button>
+</div>
+
+<footer>
+  &copy; 2025 Habit Hair &amp; Nail Studio &nbsp;·&nbsp;
+  <a href="https://instagram.com/habithairnailstudio" target="_blank">@habithairnailstudio</a>
+</footer>
+
+<script>
+  // Star rating
+  const stars = document.querySelectorAll('.star-btn');
+  let selectedVal = 0;
+
+  stars.forEach(btn => {
+    btn.addEventListener('mouseover', () => highlight(+btn.dataset.val));
+    btn.addEventListener('mouseout', () => highlight(selectedVal));
+    btn.addEventListener('click', () => {
+      selectedVal = +btn.dataset.val;
+      document.getElementById('valoracionInput').value = selectedVal;
+      highlight(selectedVal);
+    });
+  });
+
+  function highlight(val) {
+    stars.forEach(b => b.classList.toggle('active', +b.dataset.val <= val));
+  }
+
+  // Form submit — aquí puedes conectar a Formspree, Netlify Forms, etc.
+  document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    document.getElementById('feedbackForm').style.display = 'none';
+    document.getElementById('thankYou').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  function resetForm() {
+    document.getElementById('feedbackForm').reset();
+    selectedVal = 0;
+    highlight(0);
+    document.getElementById('valoracionInput').value = '';
+    document.getElementById('feedbackForm').style.display = 'flex';
+    document.getElementById('thankYou').style.display = 'none';
+  }
+</script>
+
+</body>
+</html>
